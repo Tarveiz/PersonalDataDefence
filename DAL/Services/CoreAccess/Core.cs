@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Services.CoreAccess
 {
-    class Class1
+    class Core
     {
     }
 }

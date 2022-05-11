@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BLL.Models;
+using BLL.Services.AccountAuth;
 
 namespace UI
 {
@@ -24,11 +26,21 @@ namespace UI
         {
             InitializeComponent();
         }
-        public void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             string log = LoginBox.Text;
             string pas = PasswordBox.Text;
-            
+            AuthModel model = Reques(log, pas);
+            MessageBroker message = new MessageBroker();
+            message.ReceivingMessage(model);
+        }
+
+        public AuthModel Reques(string A, string B)
+        {
+            AuthModel model = new AuthModel();
+            model.Login = A;
+            model.Password = B;
+            return (model);
         }
     }
 }
