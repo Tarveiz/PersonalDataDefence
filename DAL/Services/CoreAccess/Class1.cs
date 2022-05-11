@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Models
+namespace DAL.Services.CoreAccess
 {
-    public class AuthModel
+    class Class1
     {
-        public string Login {get; set;}
-        public string Password {get; set;}
     }
 }
