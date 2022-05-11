@@ -1,0 +1,17 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Аутентификация" Height="321" Width="525">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="36,62,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="269" FontFamily="Times New Roman" FontSize="16" Height="32" Name="LoginBox"/>
+        <TextBox HorizontalAlignment="Left" Margin="36,140,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" FontFamily="Times New Roman" FontSize="16" Height="32" Name="PasswordBox"/>
+        <Label Content="Логин:" HorizontalAlignment="Left" Margin="36,36,0,0" VerticalAlignment="Top" Width="82" Height="26" FontSize="16" FontFamily="Times New Roman"/>
+        <Label Content="Пароль:" HorizontalAlignment="Left" Margin="36,112,0,0" VerticalAlignment="Top" Width="82" FontSize="16" FontFamily="Times New Roman"/>
+        <Button Content="Ввод" HorizontalAlignment="Left" Margin="161,203,0,0" VerticalAlignment="Top" Height="55" Width="188" FontSize="16" Click="Button_Click"/>
+
+    </Grid>
+</Window>
