@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Services.CoreAccess;
+using System.IO;
 
 namespace BLL.Services.AccountAuth
 {
@@ -13,12 +15,15 @@ namespace BLL.Services.AccountAuth
             //Checker(hash);
         }
 
-        public void DataHash(string hash)
+        public void DataHash()
         {
-
+            List<string> resultHash = new List<string>();
+            Core hashCore = new Core();
+            resultHash = hashCore.Hash();
+            Checker(resultHash);
         }
 
-        public void Checker(string UserHash, string DataHash)
+        public void Checker(string UserHash, List<string> DataHash)
         {
 
         }

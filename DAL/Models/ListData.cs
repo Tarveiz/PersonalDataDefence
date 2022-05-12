@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Models
+namespace DAL.Models
 {
-    public class AuthModel
+    public class ListData
     {
-        public string Login {get; set;}
-        public string Password {get; set;}
+
     }
 }
