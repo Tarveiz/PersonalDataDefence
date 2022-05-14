@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using BLL.Models;
+using BLL.Enum;
 
 namespace BLL.Services.AccountAuth
 {
     public class HashProcess
     {
-        public void UsersHash(AuthModel model)
+        public AuthStatus UsersHash(AuthModel model)
         {
             string compile = model.Login + model.Password;
             MD5 AlgorithmMD5 = MD5.Create();
@@ -25,7 +26,8 @@ namespace BLL.Services.AccountAuth
             }
 
             HashCheck req = new HashCheck();
-            req.UserHash(Convert.ToString(HashCode));
+            bool result = req.Checker(Convert.ToString(HashCode));
+            return result;
         }
     }
 }

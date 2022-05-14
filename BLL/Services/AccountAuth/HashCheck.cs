@@ -5,27 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Services.CoreAccess;
 using System.IO;
+using BLL.Enum;
 
 namespace BLL.Services.AccountAuth
 {
     public class HashCheck
     {
-        public void UserHash(string hash)
-        {
-            //Checker(hash);
-        }
 
-        public void DataHash()
+        public AuthStatus Checker(string UIhash)
         {
             List<string> resultHash = new List<string>();
             Core hashCore = new Core();
             resultHash = hashCore.Hash();
-            Checker(resultHash);
-        }
-
-        public void Checker(string UserHash, List<string> DataHash)
-        {
-
+            foreach (string str in resultHash)
+            {
+                if (UIhash == str)
+                {
+                    return AuthStatus.authorized;
+                }
+                else
+                {
+                    return AuthStatus.notAuthorized;
+                }
+            }
         }
     }
 }
