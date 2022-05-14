@@ -1,8 +1,9 @@
 ﻿namespace BLL.Enum
 {
-    enum AuthStatus
+    public enum AuthStatus
     {
-        notAuthorized,
-        authorized
+        notAuthorized = 0,
+        authorized = 1,
+        NO_HASH_DATA_IN_CORE = 2
     }
 }

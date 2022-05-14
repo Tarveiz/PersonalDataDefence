@@ -10,15 +10,17 @@ namespace BLL.Services.AccountAuth
 {
     public class MessageBroker
     {
-        public void ReceivingMessage(AuthModel model)
+        public AuthStatus ReceivingMessage(AuthModel model)
         {
-            RetrievedMessage(model);
+            AuthStatus status = RetrievedMessage(model);
+            return status;
         }
 
         public AuthStatus RetrievedMessage(AuthModel model)
         {
             HashProcess req = new HashProcess();
-            req.UsersHash(model);
+            AuthStatus result = req.UsersHash(model);
+            return result;
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL.Models;
 using BLL.Services.AccountAuth;
+using BLL.Enum;
 
 namespace UI
 {
@@ -26,13 +27,26 @@ namespace UI
         {
             InitializeComponent();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Button_Click(object sender, RoutedEventArgs e)
         {
             string log = LoginBox.Text;
             string pas = PasswordBox.Text;
             AuthModel model = Reques(log, pas);
             MessageBroker message = new MessageBroker();
-            message.ReceivingMessage(model);
+            AuthStatus answer = message.ReceivingMessage(model);
+            if (answer == AuthStatus.notAuthorized)
+            {
+                MessageBox.Show("Введены некорректные данные аутентификации.");
+                LoginBox.Text = "";
+                PasswordBox.Text = "";
+            }
+            if (answer == AuthStatus.NO_HASH_DATA_IN_CORE)
+            {
+                MessageBox.Show("Критическая ошибка. В базе слоя CORE не найдены данные. Пожалуйста, обратитесь к специалисту.");
+                LoginBox.Text = "";
+                PasswordBox.Text = "";
+            }
+            
         }
 
         public AuthModel Reques(string A, string B)

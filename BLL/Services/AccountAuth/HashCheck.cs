@@ -19,15 +19,16 @@ namespace BLL.Services.AccountAuth
             resultHash = hashCore.Hash();
             foreach (string str in resultHash)
             {
+                if (str == "NO_HASH_DATA_IN_CORE")
+                {
+                    return AuthStatus.NO_HASH_DATA_IN_CORE;
+                }
                 if (UIhash == str)
                 {
                     return AuthStatus.authorized;
                 }
-                else
-                {
-                    return AuthStatus.notAuthorized;
-                }
             }
+            return AuthStatus.notAuthorized;
         }
     }
 }

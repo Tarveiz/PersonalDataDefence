@@ -11,11 +11,17 @@ namespace DAL.Services.CoreAccess
     {
         public List<string> Hash()
         {
-            string path = @"\Hash.txt";
+            string path = @"..\..\..\..\DAL\Services\CoreAccess\Hash.txt";
             StreamReader reader = new StreamReader(path);
             string line = reader.ReadLine();
             List<string> result = new List<string>();
             List<char> word = new List<char>();
+            if (line == null)
+            {
+                List<string> exception = new List<string>();
+                exception.Add("NO_HASH_DATA_IN_CORE");
+                return exception;
+            }
             foreach (char i in line)
             {
                 if (i == ';')

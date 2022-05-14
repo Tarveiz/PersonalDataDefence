@@ -26,7 +26,7 @@ namespace BLL.Services.AccountAuth
             }
 
             HashCheck req = new HashCheck();
-            bool result = req.Checker(Convert.ToString(HashCode));
+            AuthStatus result = req.Checker(Convert.ToString(HashCode));
             return result;
         }
     }
