@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainMenu" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Вывести" HorizontalAlignment="Left" Margin="507,91,0,0" VerticalAlignment="Top" Height="65" FontSize="16" Width="162" Click="OutPut"/>
+        <Button Content="Изменить" HorizontalAlignment="Left" Height="65" Margin="507,235,0,0" VerticalAlignment="Top" FontSize="16" Width="162" Click="Change"/>
+
     </Grid>
 </Window>

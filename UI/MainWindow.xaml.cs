@@ -29,31 +29,42 @@ namespace UI
         }
         public void Button_Click(object sender, RoutedEventArgs e)
         {
-            string log = LoginBox.Text;
-            string pas = PasswordBox.Text;
-            AuthModel model = Reques(log, pas);
+            string login = LoginBox.Text;
+            string password = PasswordBox.Text;
+            AuthModel model = Reques(login, password);
             MessageBroker message = new MessageBroker();
             AuthStatus answer = message.ReceivingMessage(model);
-            if (answer == AuthStatus.notAuthorized)
-            {
-                MessageBox.Show("Введены некорректные данные аутентификации.");
-                LoginBox.Text = "";
-                PasswordBox.Text = "";
-            }
-            if (answer == AuthStatus.NO_HASH_DATA_IN_CORE)
-            {
-                MessageBox.Show("Критическая ошибка. В базе слоя CORE не найдены данные. Пожалуйста, обратитесь к специалисту.");
-                LoginBox.Text = "";
-                PasswordBox.Text = "";
-            }
-            
+            ExceptionHandler(answer);
         }
 
-        public AuthModel Reques(string A, string B)
+        private void ExceptionHandler(AuthStatus answer)
+        {
+            switch (answer)
+            {
+                case AuthStatus.notAuthorized:
+                    MessageBox.Show("Введены некорректные данные аутентификации.");
+                    LoginBox.Text = "";
+                    PasswordBox.Text = "";
+                    break;
+                case AuthStatus.authorized:
+                    MainMenu menu = new MainMenu();
+                    menu.Show();
+                    this.Close();
+                    break;
+                case AuthStatus.NO_HASH_DATA_IN_CORE:
+                    MessageBox.Show("Критическая ошибка. В базе слоя CORE не найдены данные. Пожалуйста, обратитесь к специалисту.");
+                    LoginBox.Text = "";
+                    PasswordBox.Text = "";
+                    break;
+            }
+        }
+
+
+        public AuthModel Reques(string login, string password)
         {
             AuthModel model = new AuthModel();
-            model.Login = A;
-            model.Password = B;
+            model.Login = login;
+            model.Password = password;
             return (model);
         }
     }

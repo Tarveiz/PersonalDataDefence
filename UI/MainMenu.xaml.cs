@@ -11,17 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BLL.Services.BackUp;
 
 namespace UI
 {
-    /// <summary>
-    /// Логика взаимодействия для MainMenu.xaml
-    /// </summary>
     public partial class MainMenu : Window
     {
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        public void OutPut(object sender, RoutedEventArgs e)
+        {
+            MessageBroker message = new MessageBroker();
+            message.ReceivingMessage();
+        }
+
+        public void Change(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Работает вот так");
         }
     }
 }
