@@ -11,7 +11,7 @@ namespace BLL.Services.AccountAuth
 {
     public class HashProcess
     {
-        public AuthStatus UsersHash(AuthModel model)
+        public string UsersHash(AuthModel model)
         {
             string compile = model.Login + model.Password;
             MD5 AlgorithmMD5 = MD5.Create();
@@ -25,8 +25,7 @@ namespace BLL.Services.AccountAuth
                 HashCode.Append(a.ToString("X2"));
             }
 
-            HashCheck req = new HashCheck();
-            AuthStatus result = req.Checker(Convert.ToString(HashCode));
+            string result = Convert.ToString(HashCode);
             return result;
         }
     }

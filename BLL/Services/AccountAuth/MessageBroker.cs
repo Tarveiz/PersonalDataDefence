@@ -18,8 +18,8 @@ namespace BLL.Services.AccountAuth
 
         public AuthStatus RetrievedMessage(AuthModel model)
         {
-            HashProcess req = new HashProcess();
-            AuthStatus result = req.UsersHash(model);
+            HashCheck req = new HashCheck();
+            AuthStatus result = req.Checker(model);
             return result;
         }
     }

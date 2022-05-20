@@ -6,24 +6,27 @@ using System.Threading.Tasks;
 using DAL.Services.CoreAccess;
 using System.IO;
 using BLL.Enum;
+using BLL.Models;
 
 namespace BLL.Services.AccountAuth
 {
     public class HashCheck
     {
 
-        public AuthStatus Checker(string UIhash)
+        public AuthStatus Checker(AuthModel model)
         {
-            List<string> resultHash = new List<string>();
+            HashProcess UIhash = new HashProcess();
+            string UserHash = UIhash.UsersHash(model);
+            List<string> resultHashCore = new List<string>();
             Core hashCore = new Core();
-            resultHash = hashCore.Hash();
-            foreach (string str in resultHash)
+            resultHashCore = hashCore.Hash();
+            foreach (string str in resultHashCore)
             {
                 if (str == "NO_HASH_DATA_IN_CORE")
                 {
                     return AuthStatus.NO_HASH_DATA_IN_CORE;
                 }
-                if (UIhash == str)
+                if (UserHash == str)
                 {
                     return AuthStatus.authorized;
                 }

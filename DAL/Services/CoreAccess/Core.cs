@@ -15,7 +15,7 @@ namespace DAL.Services.CoreAccess
             StreamReader reader = new StreamReader(path);
             string line = reader.ReadLine();
             List<string> result = new List<string>();
-            List<char> word = new List<char>();
+            string word = "";
             if (line == null)
             {
                 List<string> exception = new List<string>();
@@ -26,12 +26,12 @@ namespace DAL.Services.CoreAccess
             {
                 if (i == ';')
                 {
-                    result.Add(word.ToString());
-                    word.Clear();
+                    result.Add(word);
+                    word ="";
                 }
                 else
                 {
-                    word.Add(i);
+                    word+=i;
                 }
             }
             return result;
