@@ -15,14 +15,19 @@ namespace DAL.Services
             string path = @"..\..\..\..\DAL\PersonalData.txt";
             StreamReader reader = new StreamReader(path);
             string hash = reader.ReadLine();
+            reader.Close();
             return hash;
         }
 
         public void ChangeDataDAL(DataType Data)
         {
             string path = @"..\..\..\..\DAL\PersonalData.txt";
-            StreamWriter write = new StreamWriter(path);
-            write.Write(Data);
+            StreamWriter writer = new StreamWriter(path);
+            foreach (string str in Data.ListStringType)
+            {
+                writer.Write(str);
+            }
+            writer.Close();
         }
     }
 }

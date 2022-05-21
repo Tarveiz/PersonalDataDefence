@@ -16,18 +16,29 @@ namespace BLL.Services.BackUp
         public IntegrityStatus MainChecker()
         {
             Core sup = new Core();
-            DataType COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
-            DataType dalHash = DALHAsh();
-            if (COREHash != dalHash)
+
+            for (int i = 0; i<=1; i++)
             {
-                ProcessMethod backUpInitialize = new ProcessMethod();
-                backUpInitialize.MainProcess(IntegrityStatus.INTEGRITY_IS_COMPROMISED);
-                return IntegrityStatus.INTEGRITY_IS_COMPROMISED;
+                bool check = false;
+                DataType COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
+                DataType dalHash = DALHAsh();
+                if (COREHash.StringType != dalHash.StringType)
+                {
+                    ProcessMethod backUpInitialize = new ProcessMethod();
+                    backUpInitialize.MainProcess(IntegrityStatus.INTEGRITY_IS_COMPROMISED);
+                    i--; check = true;
+                }
+                else
+                {
+                    if (check == true)
+                    {
+                        return IntegrityStatus.INTEGRITY_IS_BROKEN_BUT_HAS_BEEN_RESTORED;
+                    }
+                    return IntegrityStatus.INTEGRITY_IS_INTACT;
+                }
             }
-            else
-            {
-                return IntegrityStatus.INTEGRITY_IS_INTACT;
-            }
+            
+            return IntegrityStatus.UNKNOWN_ERROR;
         }
 
         private DataType DALHAsh()

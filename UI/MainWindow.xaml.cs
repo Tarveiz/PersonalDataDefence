@@ -53,6 +53,7 @@ namespace UI
                     break;
                 case AuthStatus.NO_HASH_DATA_IN_CORE:
                     MessageBox.Show("Критическая ошибка. В базе слоя CORE не найдены данные. Пожалуйста, обратитесь к специалисту.");
+                    //Конкретно хеш-коды авторизованных пользователей
                     LoginBox.Text = "";
                     PasswordBox.Text = "";
                     break;

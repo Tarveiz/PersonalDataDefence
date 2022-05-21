@@ -9,17 +9,17 @@ namespace BLL.Services.BackUp
 {
     public class MessageBroker
     {
-        public void ReceivingMessage()
+        public IntegrityStatus ReceivingMessage()
         {
-            RetrievedMessage();
+            IntegrityStatus statusResult = RetrievedMessage();
+            return statusResult;
         }
 
         public IntegrityStatus RetrievedMessage()
         {
             IntegrityChecker check = new IntegrityChecker();
-            check.MainChecker();
-
-            return IntegrityStatus.INTEGRITY_IS_COMPROMISED;
+            IntegrityStatus statusResult =  check.MainChecker();
+            return statusResult;
         }
     }
 }

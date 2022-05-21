@@ -50,16 +50,20 @@ namespace DAL.Services.CoreAccess
                     string path = @"..\..\..\..\DAL\Services\CoreAccess\UsersHash.txt";
                     StreamReader reader = new StreamReader(path);
                     data.StringType = reader.ReadLine();
+                    reader.Close();
                     return data;
                 case DataStatus.CORE_DATA_HASH:
                     path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
                     reader = new StreamReader(path);
                     data.StringType = reader.ReadLine();
+                    reader.Close();
                     return data;
                 case DataStatus.CORE_DATA:
                     path = @"..\..\..\..\DAL\Services\CoreAccess\CoreData.txt";
                     reader = new StreamReader(path);
-                    data.ListStringType.Add(reader.ReadLine()) ;
+                    data.ListStringType = new List<string>();
+                    data.ListStringType.Add(reader.ReadLine());
+                    reader.Close();
                     return data;
             }
             data.Error = ErrorTypeEnum.DATA_TYPE_ERROR;
