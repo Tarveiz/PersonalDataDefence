@@ -7,6 +7,7 @@ using DAL.Services.CoreAccess;
 using DAL.Services;
 using DAL.Enum;
 using BLL.Enum;
+using DAL.Models;
 
 namespace BLL.Services.BackUp
 {
@@ -15,10 +16,12 @@ namespace BLL.Services.BackUp
         public IntegrityStatus MainChecker()
         {
             Core sup = new Core();
-            string COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
-            string dalHash = DALHAsh();
+            DataType COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
+            DataType dalHash = DALHAsh();
             if (COREHash != dalHash)
             {
+                ProcessMethod backUpInitialize = new ProcessMethod();
+                backUpInitialize.MainProcess(IntegrityStatus.INTEGRITY_IS_COMPROMISED);
                 return IntegrityStatus.INTEGRITY_IS_COMPROMISED;
             }
             else
@@ -27,13 +30,15 @@ namespace BLL.Services.BackUp
             }
         }
 
-        private string DALHAsh()
+        private DataType DALHAsh()
         {
             BackUpSupp getData = new BackUpSupp();
             string personalData = getData.IntegritySupp();
             MainHash getActualHash = new MainHash();
             string actualHash = getActualHash.GetHash(personalData);
-            return actualHash;
+            DataType data = new DataType();
+            data.StringType = actualHash;
+            return data;
         }
     }
 }

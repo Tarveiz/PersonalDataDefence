@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using DAL.Enum;
+using DAL.Models;
 
 namespace DAL.Services.CoreAccess
 {
@@ -14,7 +15,9 @@ namespace DAL.Services.CoreAccess
         {
             //Обработать несколько строк, если таковые будут в доке с пользовательскими хешами
             // + перенести весь функционал. Отсюда мы лишь получаем сырые данные
-            string line = GetData(DataStatus.USERS_HASH);
+            DataType data = new DataType();
+            data = GetData(DataStatus.USERS_HASH);
+            string line = data.StringType;
             List<string> result = new List<string>();
             string word = "";
             if (line == null)
@@ -38,23 +41,29 @@ namespace DAL.Services.CoreAccess
             return result;
         }
 
-        public string GetData(DataStatus state)
+        public DataType GetData(DataStatus state)
         {
-            string hash = "";
+            DataType data = new DataType();
             switch (state)
             {
                 case DataStatus.USERS_HASH:
                     string path = @"..\..\..\..\DAL\Services\CoreAccess\UsersHash.txt";
                     StreamReader reader = new StreamReader(path);
-                    hash = reader.ReadLine();
-                    return hash;
+                    data.StringType = reader.ReadLine();
+                    return data;
                 case DataStatus.CORE_DATA_HASH:
                     path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
                     reader = new StreamReader(path);
-                    hash = reader.ReadLine();
-                    return hash;
+                    data.StringType = reader.ReadLine();
+                    return data;
+                case DataStatus.CORE_DATA:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreData.txt";
+                    reader = new StreamReader(path);
+                    data.ListStringType.Add(reader.ReadLine()) ;
+                    return data;
             }
-            return hash;
+            data.Error = ErrorTypeEnum.DATA_TYPE_ERROR;
+            return data;
         }
 
     }
