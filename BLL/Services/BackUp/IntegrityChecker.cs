@@ -16,10 +16,9 @@ namespace BLL.Services.BackUp
         public IntegrityStatus MainChecker()
         {
             Core sup = new Core();
-
+            bool check = false;
             for (int i = 0; i<=1; i++)
             {
-                bool check = false;
                 DataType COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
                 DataType dalHash = DALHAsh();
                 if (COREHash.StringType != dalHash.StringType)

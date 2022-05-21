@@ -25,7 +25,13 @@ namespace UI
         public void OutPut(object sender, RoutedEventArgs e)
         {
             MessageBroker message = new MessageBroker();
-            message.ReceivingMessage();
+            string integrityResult = "";
+            integrityResult = message.ReceivingMessage();
+            if (integrityResult != "")
+            {
+                MessageBox.Show(integrityResult);
+            }
+
         }
 
         public void Change(object sender, RoutedEventArgs e)

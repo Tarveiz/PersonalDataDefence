@@ -9,10 +9,22 @@ namespace BLL.Services.BackUp
 {
     public class MessageBroker
     {
-        public IntegrityStatus ReceivingMessage()
+        public string ReceivingMessage()
         {
             IntegrityStatus statusResult = RetrievedMessage();
-            return statusResult;
+            string returnStatus = "";
+            if(statusResult == IntegrityStatus.INTEGRITY_IS_BROKEN_BUT_HAS_BEEN_RESTORED)
+            {
+                returnStatus = "Целостность нарушена, но была восстановлена";
+                return returnStatus;
+            }
+            if (statusResult == IntegrityStatus.INTEGRITY_IS_INTACT)
+            {
+                returnStatus = "Все работает";
+                return returnStatus;
+            }
+            returnStatus = "Неизвестная ошибка. Пожалуйста, обратитесь к специалисту.";
+            return returnStatus;
         }
 
         public IntegrityStatus RetrievedMessage()
