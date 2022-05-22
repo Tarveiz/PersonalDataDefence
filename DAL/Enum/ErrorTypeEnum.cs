@@ -2,6 +2,6 @@
 {
     public enum ErrorTypeEnum
     {
-        DATA_TYPE_ERROR = 1
+        DATA_TYPE_ERROR
     }
 }

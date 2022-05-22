@@ -65,9 +65,55 @@ namespace DAL.Services.CoreAccess
                     data.ListStringType.Add(reader.ReadLine());
                     reader.Close();
                     return data;
+                case DataStatus.ENCRYPT_KEY:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
+                    //path = @"EncryptKey.txt";
+                    data.EncryptKey = File.ReadAllBytes(path);
+                    return data;
+                case DataStatus.TEST:
+                    path = @"D:\Practice\С#\Duplom\PersonalDataDefence\DAL\Services\CoreAccess\TEST.txt";
+                    //path = @"TEST.txt";
+                    string a = File.ReadAllText(path);
+                    byte[] f = File.ReadAllBytes(path);
+
+                    data.EncryptKey = File.ReadAllBytes(path);
+                    return data;
             }
             data.Error = ErrorTypeEnum.DATA_TYPE_ERROR;
             return data;
+        }
+
+        public void SetData(DataType data, DataStatus state)
+        {
+            switch (state)
+            {
+                case DataStatus.ENCRYPT_KEY:
+                    string path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
+                    //var stream = new FileStream(path, FileMode.Append);
+                    //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
+                    File.WriteAllBytes(path, data.EncryptKey);
+                    break;
+                case DataStatus.TEST:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\TEST.txt";
+                    
+                    //var stream = new FileStream(path, FileMode.Append);
+                    //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
+
+                    File.WriteAllBytes(path, data.EncryptKey);
+
+                    //StreamWriter writer = new StreamWriter(path);
+                    //writer.WriteLine(data.StringType);
+                    break;
+                case DataStatus.TEST2:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\TEST2.txt";
+
+                    //var stream = new FileStream(path, FileMode.Append);
+                    //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
+                    File.WriteAllText(path, data.StringType);
+                    //StreamWriter writer = new StreamWriter(path);
+                    //writer.WriteLine(data.StringType);
+                    break;
+            }
         }
 
     }

@@ -31,7 +31,6 @@ namespace UI
             if (integrityResult != "")
             {
                 MessageBox.Show(integrityResult);
-                return;
             }
             BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();
             encryptMessage.ReceivingMessage();
