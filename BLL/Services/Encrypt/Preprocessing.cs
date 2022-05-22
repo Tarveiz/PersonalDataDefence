@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BLL.Services.Encrypt
 {
-    class Preprocessing
+    public class Preprocessing
     {
+        public void MainProc()
+        {
+
+        }
     }
 }

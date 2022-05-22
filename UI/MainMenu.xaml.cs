@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL.Services.BackUp;
+using BLL.Services.Encrypt;
 
 namespace UI
 {
@@ -24,14 +25,16 @@ namespace UI
 
         public void OutPut(object sender, RoutedEventArgs e)
         {
-            MessageBroker message = new MessageBroker();
+            BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
             string integrityResult = "";
-            integrityResult = message.ReceivingMessage();
+            integrityResult = integrityMessage.ReceivingMessage();
             if (integrityResult != "")
             {
                 MessageBox.Show(integrityResult);
+                return;
             }
-
+            BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();
+            encryptMessage.ReceivingMessage();
         }
 
         public void Change(object sender, RoutedEventArgs e)

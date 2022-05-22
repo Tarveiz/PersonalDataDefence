@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace BLL.Services.Encrypt
 {
-    class MessageBroker
+    public class MessageBroker
     {
+        public void ReceivingMessage()
+        {
+            RetrievedMessage();
+        }
+
+        public void RetrievedMessage()
+        {
+            Preprocessing message = new Preprocessing();
+            message.MainProc();
+        }
     }
 }
