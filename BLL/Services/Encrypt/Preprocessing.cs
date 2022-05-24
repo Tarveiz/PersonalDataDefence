@@ -27,6 +27,7 @@ namespace BLL.Services.Encrypt
             //typ.EncryptKey = dat;
             //core.SetData(typ, DAL.Enum.DataStatus.TEST);
 
+
             DataType typ1 = new DataType();
             typ1 = core.GetData(DAL.Enum.DataStatus.TEST);
             mainData.EncryptedText = typ1.EncryptKey;
