@@ -42,12 +42,11 @@ namespace BLL.Services.BackUp
 
         private DataType DALHAsh()
         {
-            BackUpSupp getData = new BackUpSupp();
-            string personalData = getData.IntegritySupp();
-            MainHash getActualHash = new MainHash();
-            string actualHash = getActualHash.GetHash(personalData);
             DataType data = new DataType();
-            data.StringType = actualHash;
+            BackUpSupp getData = new BackUpSupp();
+            data = getData.IntegritySupp();
+            MainHash getActualHash = new MainHash();
+            data.StringType = getActualHash.GetHash(data);
             return data;
         }
     }

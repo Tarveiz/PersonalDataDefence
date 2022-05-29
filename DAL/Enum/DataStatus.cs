@@ -6,7 +6,7 @@
         CORE_DATA_HASH,
         CORE_DATA,
         ENCRYPT_KEY,
-        TEST,
-        TEST2
+        ENCRYPT_RESULT_TEST,
+        UNENCRYPT_RESULT_TEST
     }
 }

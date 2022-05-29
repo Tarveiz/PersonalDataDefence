@@ -60,23 +60,24 @@ namespace DAL.Services.CoreAccess
                     return data;
                 case DataStatus.CORE_DATA:
                     path = @"..\..\..\..\DAL\Services\CoreAccess\CoreData.txt";
-                    reader = new StreamReader(path);
-                    data.ListStringType = new List<string>();
-                    data.ListStringType.Add(reader.ReadLine());
-                    reader.Close();
+                    //reader = new StreamReader(path);
+                    //data.ListStringType = new List<string>();
+                    data.ByteArray = File.ReadAllBytes(path);
+                    //data.ListStringType.Add(reader.ReadLine());
+                    //reader.Close();
                     return data;
                 case DataStatus.ENCRYPT_KEY:
                     path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
                     //path = @"EncryptKey.txt";
-                    data.EncryptKey = File.ReadAllBytes(path);
+                    data.ByteArray = File.ReadAllBytes(path);
                     return data;
-                case DataStatus.TEST:
-                    path = @"D:\Practice\С#\Duplom\PersonalDataDefence\DAL\Services\CoreAccess\TEST.txt";
+                case DataStatus.ENCRYPT_RESULT_TEST:
+                    path = @"D:\Practice\С#\Duplom\PersonalDataDefence\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
                     //path = @"TEST.txt";
                     string a = File.ReadAllText(path);
                     byte[] f = File.ReadAllBytes(path);
 
-                    data.EncryptKey = File.ReadAllBytes(path);
+                    data.ByteArray = File.ReadAllBytes(path);
                     return data;
             }
             data.Error = ErrorTypeEnum.DATA_TYPE_ERROR;
@@ -91,21 +92,21 @@ namespace DAL.Services.CoreAccess
                     string path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
-                    File.WriteAllBytes(path, data.EncryptKey);
+                    File.WriteAllBytes(path, data.ByteArray);
                     break;
-                case DataStatus.TEST:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\TEST.txt";
+                case DataStatus.ENCRYPT_RESULT_TEST:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
                     
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
 
-                    File.WriteAllBytes(path, data.EncryptKey);
+                    File.WriteAllBytes(path, data.ByteArray);
 
                     //StreamWriter writer = new StreamWriter(path);
                     //writer.WriteLine(data.StringType);
                     break;
-                case DataStatus.TEST2:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\TEST2.txt";
+                case DataStatus.UNENCRYPT_RESULT_TEST:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
 
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
@@ -113,8 +114,11 @@ namespace DAL.Services.CoreAccess
                     //StreamWriter writer = new StreamWriter(path);
                     //writer.WriteLine(data.StringType);
                     break;
+                case DataStatus.CORE_DATA_HASH:
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
+                    File.WriteAllText(path, data.StringType);
+                    break;
             }
         }
-
     }
 }

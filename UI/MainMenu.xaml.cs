@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL.Services.BackUp;
 using BLL.Services.Encrypt;
+using BLL.Services;
 
 namespace UI
 {
@@ -25,6 +26,9 @@ namespace UI
 
         public void OutPut(object sender, RoutedEventArgs e)
         {
+            //HelpClass help = new HelpClass();
+            //help.SetCoreHashWithForce();
+
             BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
             string integrityResult = "";
             integrityResult = integrityMessage.ReceivingMessage();

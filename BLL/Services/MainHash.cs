@@ -4,22 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using DAL.Models;
 
 namespace BLL.Services
 {
     public class MainHash
     {
-        public string GetHash(string compile)
+        public string GetHash(DataType needToBeHashed)
         {
-            MD5 AlgorithmMD5 = MD5.Create();
-            byte[] getBytes = Encoding.ASCII.GetBytes(compile);
-            byte[] hash = AlgorithmMD5.ComputeHash(getBytes);
+            SHA1 HashAlgorithm = SHA1.Create();
             StringBuilder HashCode = new StringBuilder();
+
+            byte[] hash;
+            string result;
+
+            if (needToBeHashed.StringType != null)
+            {
+                byte[] getBytes = Encoding.ASCII.GetBytes(needToBeHashed.StringType);
+                hash = HashAlgorithm.ComputeHash(getBytes);
+                foreach (var a in hash)
+                {
+                    HashCode.Append(a.ToString("X2"));
+                }
+                result = Convert.ToString(HashCode);
+                return result;
+            }
+            hash = HashAlgorithm.ComputeHash(needToBeHashed.ByteArray);
             foreach (var a in hash)
             {
                 HashCode.Append(a.ToString("X2"));
             }
-            string result = Convert.ToString(HashCode);
+            result = Convert.ToString(HashCode);
             return result;
         }
     }

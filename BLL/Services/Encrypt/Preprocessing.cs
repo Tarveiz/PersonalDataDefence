@@ -21,19 +21,19 @@ namespace BLL.Services.Encrypt
             //processing.GenerateNewKey();
 
 
-            //mainData.UnEncryptedString = "Зашифруй меня";
-            //byte[] dat = processing.EncryptString(mainData);
+            //mainData.UnEncryptedString = "А теперь зашифруй и меня";
+            //byte[] dat = processing.Encrypt(mainData);
             //DataType typ = new DataType();
-            //typ.EncryptKey = dat;
+            //typ.ByteArray = dat;
             //core.SetData(typ, DAL.Enum.DataStatus.TEST);
 
 
-            DataType typ1 = new DataType();
-            typ1 = core.GetData(DAL.Enum.DataStatus.TEST);
-            mainData.EncryptedText = typ1.EncryptKey;
-            string a = processing.DecryptString(mainData);
-            typ1.StringType = a;
-            core.SetData(typ1, DAL.Enum.DataStatus.TEST2);
+            //DataType typ1 = new DataType();
+            //typ1 = core.GetData(DAL.Enum.DataStatus.TEST);
+            //mainData.EncryptedText = typ1.ByteArray;
+            //string a = processing.Decrypt(mainData);
+            //typ1.StringType = a;
+            //core.SetData(typ1, DAL.Enum.DataStatus.TEST2);
 
             //Вернуть расшифрованные данные на форму
 

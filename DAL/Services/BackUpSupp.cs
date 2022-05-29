@@ -10,24 +10,21 @@ namespace DAL.Services
 {
     public class BackUpSupp
     {
-        public string IntegritySupp()
+        public DataType IntegritySupp()
         {
+            DataType data = new DataType();
             string path = @"..\..\..\..\DAL\PersonalData.txt";
             StreamReader reader = new StreamReader(path);
             string hash = reader.ReadLine();
             reader.Close();
-            return hash;
+            data.StringType = hash;
+            return data;
         }
 
         public void ChangeDataDAL(DataType Data)
         {
             string path = @"..\..\..\..\DAL\PersonalData.txt";
-            StreamWriter writer = new StreamWriter(path);
-            foreach (string str in Data.ListStringType)
-            {
-                writer.Write(str);
-            }
-            writer.Close();
+            File.WriteAllBytes(path, Data.ByteArray);
         }
     }
 }
