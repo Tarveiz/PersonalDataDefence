@@ -19,7 +19,7 @@ namespace BLL.Services.BackUp
             {
                 Core getData = new Core();
                 DataType coreDATA = getData.GetData(DataStatus.CORE_DATA);
-                BackUpSupp POST = new BackUpSupp();
+                Access POST = new Access();
                 POST.ChangeDataDAL(coreDATA);
             }
         }

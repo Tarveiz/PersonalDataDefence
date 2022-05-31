@@ -43,7 +43,7 @@ namespace BLL.Services.BackUp
         private DataType DALHAsh()
         {
             DataType data = new DataType();
-            BackUpSupp getData = new BackUpSupp();
+            Access getData = new Access();
             data = getData.IntegritySupp();
             MainHash getActualHash = new MainHash();
             data.StringType = getActualHash.GetHash(data);

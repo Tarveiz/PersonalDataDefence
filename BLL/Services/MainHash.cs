@@ -12,7 +12,7 @@ namespace BLL.Services
     {
         public string GetHash(DataType needToBeHashed)
         {
-            SHA1 HashAlgorithm = SHA1.Create();
+            SHA256 HashAlgorithm = SHA256.Create();
             StringBuilder HashCode = new StringBuilder();
 
             byte[] hash;

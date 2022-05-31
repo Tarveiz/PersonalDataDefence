@@ -72,15 +72,12 @@ namespace DAL.Services.CoreAccess
                     data.ByteArray = File.ReadAllBytes(path);
                     return data;
                 case DataStatus.ENCRYPT_RESULT_TEST:
-                    path = @"D:\Practice\С#\Duplom\PersonalDataDefence\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
                     //path = @"TEST.txt";
-                    string a = File.ReadAllText(path);
-                    byte[] f = File.ReadAllBytes(path);
-
                     data.ByteArray = File.ReadAllBytes(path);
                     return data;
             }
-            data.Error = ErrorTypeEnum.DATA_TYPE_ERROR;
+            data.Error = ErrorType.DATA_TYPE_ERROR;
             return data;
         }
 

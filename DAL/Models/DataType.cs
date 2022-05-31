@@ -11,7 +11,7 @@ namespace DAL.Models
     {
         public string StringType { get; set; }
         public List<string> ListStringType { get; set; }
-        public ErrorTypeEnum Error { get; set; }
+        public ErrorType Error { get; set; }
         public byte[] ByteArray { get; set; }
     }
 }

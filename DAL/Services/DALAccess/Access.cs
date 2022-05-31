@@ -8,12 +8,12 @@ using DAL.Models;
 
 namespace DAL.Services
 {
-    public class BackUpSupp
+    public class Access
     {
         public DataType IntegritySupp()
         {
             DataType data = new DataType();
-            string path = @"..\..\..\..\DAL\PersonalData.txt";
+            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
             StreamReader reader = new StreamReader(path);
             string hash = reader.ReadLine();
             reader.Close();
@@ -23,8 +23,13 @@ namespace DAL.Services
 
         public void ChangeDataDAL(DataType Data)
         {
-            string path = @"..\..\..\..\DAL\PersonalData.txt";
+            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
             File.WriteAllBytes(path, Data.ByteArray);
+        }
+
+        public void GetData()
+        {
+            
         }
     }
 }

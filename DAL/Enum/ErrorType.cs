@@ -1,6 +1,6 @@
 ﻿namespace DAL.Enum
 {
-    public enum ErrorTypeEnum
+    public enum ErrorType
     {
         DATA_TYPE_ERROR
     }
