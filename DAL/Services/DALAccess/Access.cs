@@ -13,7 +13,7 @@ namespace DAL.Services
         public DataType IntegritySupp()
         {
             DataType data = new DataType();
-            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
+            string path = Directory.GetCurrentDirectory() + @"\DALAccess\PersonalData.txt";
             StreamReader reader = new StreamReader(path);
             string hash = reader.ReadLine();
             reader.Close();
@@ -23,7 +23,7 @@ namespace DAL.Services
 
         public void ChangeDataDAL(DataType Data)
         {
-            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
+            string path = Directory.GetCurrentDirectory() + @"\DALAccess\PersonalData.txt";
             File.WriteAllBytes(path, Data.ByteArray);
         }
 

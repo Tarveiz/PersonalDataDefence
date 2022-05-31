@@ -47,19 +47,19 @@ namespace DAL.Services.CoreAccess
             switch (state)
             {
                 case DataStatus.USERS_HASH:
-                    string path = @"..\..\..\..\DAL\Services\CoreAccess\UsersHash.txt";
+                    string path = Directory.GetCurrentDirectory() + @"\CoreAccess\UsersHash.txt";
                     StreamReader reader = new StreamReader(path);
                     data.StringType = reader.ReadLine();
                     reader.Close();
                     return data;
                 case DataStatus.CORE_DATA_HASH:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
+                    path = Directory.GetCurrentDirectory() +  @"\CoreAccess\CoreDataHash.txt";
                     reader = new StreamReader(path);
                     data.StringType = reader.ReadLine();
                     reader.Close();
                     return data;
                 case DataStatus.CORE_DATA:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreData.txt";
+                    path = Directory.GetCurrentDirectory() + @"\CoreAccess\CoreData.txt";
                     //reader = new StreamReader(path);
                     //data.ListStringType = new List<string>();
                     data.ByteArray = File.ReadAllBytes(path);
@@ -67,13 +67,12 @@ namespace DAL.Services.CoreAccess
                     //reader.Close();
                     return data;
                 case DataStatus.ENCRYPT_KEY:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
+                    path = Directory.GetCurrentDirectory() +  @"\CoreAccess\EncryptKey.txt";
                     //path = @"EncryptKey.txt";
                     data.ByteArray = File.ReadAllBytes(path);
                     return data;
                 case DataStatus.ENCRYPT_RESULT_TEST:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
-                    //path = @"TEST.txt";
+                    path = Directory.GetCurrentDirectory() + @"\CoreAccess\ENCRYPT_RESULT_TEST.txt";
                     data.ByteArray = File.ReadAllBytes(path);
                     return data;
             }
@@ -86,13 +85,13 @@ namespace DAL.Services.CoreAccess
             switch (state)
             {
                 case DataStatus.ENCRYPT_KEY:
-                    string path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
+                    string path = Directory.GetCurrentDirectory() + @"\CoreAccess\EncryptKey.txt";
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
                     File.WriteAllBytes(path, data.ByteArray);
                     break;
                 case DataStatus.ENCRYPT_RESULT_TEST:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
+                    path = Directory.GetCurrentDirectory() + @"\CoreAccess\ENCRYPT_RESULT_TEST.txt";
                     
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
@@ -103,7 +102,7 @@ namespace DAL.Services.CoreAccess
                     //writer.WriteLine(data.StringType);
                     break;
                 case DataStatus.UNENCRYPT_RESULT_TEST:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
+                    path = Directory.GetCurrentDirectory() + @"\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
 
                     //var stream = new FileStream(path, FileMode.Append);
                     //stream.Write(data.EncryptKey, 0, data.EncryptKey.Length);
@@ -112,7 +111,7 @@ namespace DAL.Services.CoreAccess
                     //writer.WriteLine(data.StringType);
                     break;
                 case DataStatus.CORE_DATA_HASH:
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
+                    path = Directory.GetCurrentDirectory() + @"\CoreAccess\CoreDataHash.txt";
                     File.WriteAllText(path, data.StringType);
                     break;
             }
