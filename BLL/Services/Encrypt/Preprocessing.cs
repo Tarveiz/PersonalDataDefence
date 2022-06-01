@@ -25,15 +25,15 @@ namespace BLL.Services.Encrypt
             //byte[] dat = processing.Encrypt(mainData);
             //DataType typ = new DataType();
             //typ.ByteArray = dat;
-            //core.SetData(typ, DAL.Enum.DataStatus.TEST);
+            //core.SetData(typ, DAL.Enum.DataStatus.ENCRYPT_RESULT_TEST);
 
 
-            //DataType typ1 = new DataType();
-            //typ1 = core.GetData(DAL.Enum.DataStatus.TEST);
-            //mainData.EncryptedText = typ1.ByteArray;
-            //string a = processing.Decrypt(mainData);
-            //typ1.StringType = a;
-            //core.SetData(typ1, DAL.Enum.DataStatus.TEST2);
+            DataType typ1 = new DataType();
+            typ1 = core.GetData(DAL.Enum.DataStatus.ENCRYPT_RESULT_TEST);
+            mainData.EncryptedText = typ1.ByteArray;
+            string a = processing.Decrypt(mainData);
+            typ1.StringType = a;
+            core.SetData(typ1, DAL.Enum.DataStatus.UNENCRYPT_RESULT_TEST);
 
             //Вернуть расшифрованные данные на форму
 

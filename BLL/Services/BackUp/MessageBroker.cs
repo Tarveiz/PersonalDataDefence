@@ -11,6 +11,7 @@ namespace BLL.Services.BackUp
     {
         public string ReceivingMessage()
         {
+            //Заменить на возврат енамки, а не строки
             IntegrityStatus statusResult = RetrievedMessage();
             string returnStatus = "";
             if(statusResult == IntegrityStatus.INTEGRITY_IS_BROKEN_BUT_HAS_BEEN_RESTORED)

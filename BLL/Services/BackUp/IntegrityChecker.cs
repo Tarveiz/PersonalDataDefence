@@ -49,5 +49,6 @@ namespace BLL.Services.BackUp
             data.StringType = getActualHash.GetHash(data);
             return data;
         }
+
     }
 }
