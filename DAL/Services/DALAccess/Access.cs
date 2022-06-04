@@ -15,10 +15,7 @@ namespace DAL.Services
             DataType data = new DataType();
             //string path = Directory.GetCurrentDirectory() + @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
             string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
-            StreamReader reader = new StreamReader(path);
-            string hash = reader.ReadLine();
-            reader.Close();
-            data.StringType = hash;
+            data.ByteArray = File.ReadAllBytes(path);
             return data;
         }
 

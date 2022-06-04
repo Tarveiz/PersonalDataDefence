@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL.Services.BackUp;
 using BLL.Services.Encrypt;
-using BLL.Services;
 
 namespace UI
 {
@@ -29,13 +28,15 @@ namespace UI
             //HelpClass help = new HelpClass();
             //help.SetCoreHashWithForce();
 
-            //BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
-            //string integrityResult = "";
-            //integrityResult = integrityMessage.ReceivingMessage();
-            //if (integrityResult != "")
-            //{
-            //    MessageBox.Show(integrityResult);
-            //}
+
+            BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
+            string integrityResult = "";
+            integrityResult = integrityMessage.ReceivingMessage();
+            if (integrityResult != "")
+            {
+                MessageBox.Show(integrityResult);
+            }
+
             BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();
             encryptMessage.ReceivingMessage();
         }
