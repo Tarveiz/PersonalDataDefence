@@ -2,7 +2,8 @@
 {
     public enum EncryptStatus
     {
-        NO_NEW_KEY_NEEDED,
-        NEW_KEY_NEEDED
+        ENCRYPT_NO_NEW_KEY_NEEDED,
+        ENCRYPT_NEW_KEY_NEEDED,
+        DECRYPT
     }
 }

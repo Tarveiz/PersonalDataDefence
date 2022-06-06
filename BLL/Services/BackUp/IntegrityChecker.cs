@@ -8,6 +8,7 @@ using DAL.Services;
 using DAL.Enum;
 using BLL.Enum;
 using DAL.Models;
+using DAL.Services.DALAccess;
 
 namespace BLL.Services.BackUp
 {
@@ -44,7 +45,7 @@ namespace BLL.Services.BackUp
         {
             DataType data = new DataType();
             Access getData = new Access();
-            data = getData.IntegritySupp();
+            data = getData.GetData(DataStatus.GET_DATA_FROM_DAL);
             MainHash getActualHash = new MainHash();
             data.StringType = getActualHash.GetHash(data);
             return data;

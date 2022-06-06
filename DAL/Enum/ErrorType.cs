@@ -1,4 +1,4 @@
-﻿namespace DAL.Enum
+﻿namespace DAL.Enum.ErrorType
 {
     public enum ErrorType
     {

@@ -8,6 +8,7 @@ using DAL.Enum;
 using DAL.Services.CoreAccess;
 using DAL.Services;
 using DAL.Models;
+using DAL.Services.DALAccess;
 
 namespace BLL.Services.BackUp
 {
@@ -20,7 +21,7 @@ namespace BLL.Services.BackUp
                 Core getData = new Core();
                 DataType coreDATA = getData.GetData(DataStatus.CORE_DATA);
                 Access POST = new Access();
-                POST.ChangeDataDAL(coreDATA);
+                POST.SetData(coreDATA, DataStatus.SET_DATA_TO_DAL);
             }
         }
     }

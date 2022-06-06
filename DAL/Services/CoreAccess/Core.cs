@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using DAL.Enum;
 using DAL.Models;
+using DAL.Enum.ErrorType;
 
 namespace DAL.Services.CoreAccess
 {
@@ -103,6 +104,11 @@ namespace DAL.Services.CoreAccess
                     //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\CoreDataHash.txt";
                     path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
                     File.WriteAllText(path, data.StringType);
+                    break;
+                case DataStatus.CORE_DATA:
+                    //string path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\EncryptKey.txt";
+                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreData.txt";
+                    File.WriteAllBytes(path, data.ByteArray);
                     break;
             }
         }

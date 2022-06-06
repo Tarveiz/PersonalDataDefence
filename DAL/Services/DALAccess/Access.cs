@@ -5,30 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using DAL.Models;
+using DAL.Enum.ErrorType;
+using DAL.Enum;
 
-namespace DAL.Services
+namespace DAL.Services.DALAccess
 {
     public class Access
     {
-        public DataType IntegritySupp()
+        public DataType GetData(DataStatus state)
         {
             DataType data = new DataType();
-            //string path = Directory.GetCurrentDirectory() + @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
-            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
-            data.ByteArray = File.ReadAllBytes(path);
+            switch (state)
+            {
+                case DataStatus.GET_DATA_FROM_DAL:
+                    //string path = Directory.GetCurrentDirectory() + @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
+                    string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
+                    data.ByteArray = File.ReadAllBytes(path);
+                    return data;
+            }
+            data.Error = ErrorType.DATA_TYPE_ERROR;
             return data;
         }
 
-        public void ChangeDataDAL(DataType Data)
+        public void SetData(DataType data, DataStatus state)
         {
-            //string path = Directory.GetCurrentDirectory() + @"\Services\DALAccess\PersonalData.txt";
-            string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
-            File.WriteAllBytes(path, Data.ByteArray);
-        }
-
-        public void GetData()
-        {
-            
+            switch (state)
+            {
+                case DataStatus.SET_DATA_TO_DAL:
+                    //string path = Directory.GetCurrentDirectory() + @"\Services\DALAccess\PersonalData.txt";
+                    string path = @"..\..\..\..\DAL\Services\DALAccess\PersonalData.txt";
+                    File.WriteAllBytes(path, data.ByteArray);
+                    break;
+            }
         }
     }
 }

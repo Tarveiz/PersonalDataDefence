@@ -30,10 +30,6 @@ namespace BLL.Services.Encrypt
         {
             Core data = new Core();
             DataType dataModel = new DataType();
-            if (model.State == EncryptStatus.NEW_KEY_NEEDED)
-            {
-                GenerateNewKey();
-            }
             dataModel = data.GetData(DataStatus.ENCRYPT_KEY);
             Aes aes = Aes.Create(); // make obj
             aes.GenerateIV(); // salt
