@@ -29,19 +29,18 @@ namespace UI
         {
             //HelpClass help = new HelpClass();
             //help.SetNewCoreDataWithForce("Иванов Иван Иванович, 22.05.1000; Галя Петровна Хреновна, 11.01.2002; Василий Васильевич Васильев, 10.02.2000");
-            //help.SetCoreHashWithForce();
             //help.SetDALPersonalDataWithForce();
 
 
 
 
-            //BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
-            //string integrityResult = "";
-            //integrityResult = integrityMessage.ReceivingMessage();
-            //if (integrityResult != "")
-            //{
-            //    MessageBox.Show(integrityResult);
-            //}
+            BLL.Services.BackUp.MessageBroker integrityMessage = new BLL.Services.BackUp.MessageBroker();
+            string integrityResult = "";
+            integrityResult = integrityMessage.ReceivingMessage();
+            if (integrityResult != "")
+            {
+                MessageBox.Show(integrityResult);
+            }
 
             List<string> requestResult = new List<string>();
             BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();

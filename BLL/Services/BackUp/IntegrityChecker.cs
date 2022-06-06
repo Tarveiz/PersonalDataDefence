@@ -17,10 +17,13 @@ namespace BLL.Services.BackUp
         public IntegrityStatus MainChecker()
         {
             Core sup = new Core();
+            MainHash makeHash = new MainHash();
             bool check = false;
             for (int i = 0; i<=1; i++)
             {
-                DataType COREHash = sup.GetData(DataStatus.CORE_DATA_HASH);
+                DataType COREData = sup.GetData(DataStatus.CORE_DATA);
+                DataType COREHash = new DataType();
+                COREHash.StringType = makeHash.GetHash(COREData);
                 DataType dalHash = DALHAsh();
                 if (COREHash.StringType != dalHash.StringType)
                 {

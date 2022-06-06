@@ -12,36 +12,6 @@ namespace DAL.Services.CoreAccess
 {
     public class Core
     {
-        public List<string> Hash()
-        {
-            //Обработать несколько строк, если таковые будут в доке с пользовательскими хешами
-            // + перенести весь функционал. Отсюда мы лишь получаем сырые данные
-            DataType data = new DataType();
-            data = GetData(DataStatus.USERS_HASH);
-            string line = data.StringType;
-            List<string> result = new List<string>();
-            string word = "";
-            if (line == null)
-            {
-                List<string> exception = new List<string>();
-                exception.Add("NO_HASH_DATA_IN_CORE");
-                return exception;
-            }
-            foreach (char i in line)
-            {
-                if (i == ';')
-                {
-                    result.Add(word);
-                    word ="";
-                }
-                else
-                {
-                    word+=i;
-                }
-            }
-            return result;
-        }
-
         public DataType GetData(DataStatus state)
         {
             DataType data = new DataType();
@@ -51,13 +21,6 @@ namespace DAL.Services.CoreAccess
                     //string path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\UsersHash.txt";
                     string path = @"..\..\..\..\DAL\Services\CoreAccess\UsersHash.txt";
                     StreamReader reader = new StreamReader(path);
-                    data.StringType = reader.ReadLine();
-                    reader.Close();
-                    return data;
-                case DataStatus.CORE_DATA_HASH:
-                    //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\CoreDataHash.txt";
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
-                    reader = new StreamReader(path);
                     data.StringType = reader.ReadLine();
                     reader.Close();
                     return data;
@@ -98,11 +61,6 @@ namespace DAL.Services.CoreAccess
                 case DataStatus.UNENCRYPT_RESULT_TEST:
                     //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
                     path = @"..\..\..\..\DAL\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
-                    File.WriteAllText(path, data.StringType);
-                    break;
-                case DataStatus.CORE_DATA_HASH:
-                    //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\CoreDataHash.txt";
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\CoreDataHash.txt";
                     File.WriteAllText(path, data.StringType);
                     break;
                 case DataStatus.CORE_DATA:

@@ -21,7 +21,7 @@ namespace BLL.Services.BackUp
             }
             if (statusResult == IntegrityStatus.INTEGRITY_IS_INTACT)
             {
-                returnStatus = "Все работает";
+                returnStatus = "Целостность информации не нарушена";
                 return returnStatus;
             }
             returnStatus = "Неизвестная ошибка. Пожалуйста, обратитесь к специалисту.";
