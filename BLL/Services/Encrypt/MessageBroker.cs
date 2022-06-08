@@ -7,18 +7,28 @@ using BLL.Models;
 using DAL.Models;
 using BLL.Enum.UI_Status;
 using BLL.Enum;
+using BLL.Models.UI_Model;
 
 namespace BLL.Services.Encrypt
 {
     public class MessageBroker
     {
-        public List<string> ReceivingMessage(UI_Status request)
+        public void ReceivingMessage(UI_Model request)
         {
             //Предоставление на форму пользователя информацию в таком виде, в котором она уже будет отображаться пользователю
             DataType data = new DataType();
             List<string> result = new List<string>();
+            RetrievedMessage(request);
 
-            data = RetrievedMessage(request);
+        }
+
+        public List<string> ReceivingMessage(UI_Status request)
+        {
+            DataType data = new DataType();
+            List<string> result = new List<string>();
+            UI_Model model = new UI_Model();
+            model.State = request;
+            data = RetrievedMessage(model);
 
             switch (request)
             {
@@ -43,23 +53,27 @@ namespace BLL.Services.Encrypt
                         result.Add(word);
                     }
                     return result;
-                case UI_Status.REWRITE_INFORMATION:
-                    return result;
             }
             return result;
         }
 
-        public DataType RetrievedMessage(UI_Status request)
+        public DataType RetrievedMessage(UI_Model request)
         {
             //Препроцесс информации для внутренних классов в таком виде, в котором им её будет удобно использовать (в моделях)
             Preprocessing message = new Preprocessing();
+            EncryptModel encryptModel = new EncryptModel();
             DataType data = new DataType();
-            switch (request)
+            switch (request.State)
             {
                 case UI_Status.OUTPUT_INFORMATION:
-                    data = message.MainProc(EncryptStatus.DECRYPT);
+                    encryptModel.State = EncryptStatus.DECRYPT;
+                    data = message.MainProc(encryptModel);
                     return data;
                 case UI_Status.REWRITE_INFORMATION:
+                    encryptModel.State = EncryptStatus.ENCRYPT_NO_NEW_KEY_NEEDED;
+                    encryptModel.UnEncryptedString = request.StringType;
+                    data = message.MainProc(encryptModel);
+
                     return data;
             }
             

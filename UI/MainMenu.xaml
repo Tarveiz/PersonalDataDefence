@@ -8,8 +8,8 @@
         Title="Главное меню" Height="484" Width="800">
     <Grid>
         <Button Content="Вывести" HorizontalAlignment="Left" Margin="602,90,0,0" VerticalAlignment="Top" Height="65" FontSize="16" Width="162" Click="OutPut"/>
-        <Button Content="Изменить" HorizontalAlignment="Left" Height="65" Margin="602,300,0,0" VerticalAlignment="Top" FontSize="16" Width="162" Click="Change"/>
-        <ListBox x:Name="ListForm" Margin="10,10,203,10"/>
+        <Button Content="Изменить" HorizontalAlignment="Left" Height="65" Margin="602,300,0,0" VerticalAlignment="Top" FontSize="16" Width="162" Click="ChangeItem"/>
+        <TextBox x:Name="ListForm" HorizontalAlignment="Left" Height="448" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="587" FontFamily="Times New Roman" FontSize="18"/>
 
     </Grid>
 </Window>

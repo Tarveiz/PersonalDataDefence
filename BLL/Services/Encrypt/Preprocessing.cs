@@ -15,29 +15,31 @@ namespace BLL.Services.Encrypt
 {
     public class Preprocessing
     {
-        public DataType MainProc(EncryptStatus state)
+        public DataType MainProc(EncryptModel model)
         {
             AlgorithmInitialization processing = new AlgorithmInitialization();
             DataType data = new DataType();
             Core core = new Core();
             Access DALAccess = new Access();
             EncryptModel mainData = new EncryptModel();
-            data = core.GetData(DataStatus.CORE_DATA);
+            
             //data = DALAccess.GetData(DataStatus.GET_DATA_FROM_DAL);
 
-            switch (state)
+            switch (model.State)
             {
                 case EncryptStatus.ENCRYPT_NEW_KEY_NEEDED:
-                    processing.GenerateNewKey();
-                    data.ByteArray = processing.Encrypt(mainData);
+                    //processing.GenerateNewKey();
+                    //data.ByteArray = processing.Encrypt(mainData);
                     return data;
                 case EncryptStatus.ENCRYPT_NO_NEW_KEY_NEEDED:
+                    data.ByteArray = processing.Encrypt(model);
+                    core.SetData(data, DataStatus.CORE_DATA);
+                    DALAccess.SetData(data, DataStatus.SET_DATA_TO_DAL);
                     return data;
                 case EncryptStatus.DECRYPT:
+                    data = DALAccess.GetData(DataStatus.GET_DATA_FROM_DAL);
                     mainData.EncryptedText = data.ByteArray;
-                    //Array.Clear(data.ByteArray, 0, data.ByteArray.Length);//очищаем (!!!)
                     data.StringType = processing.Decrypt(mainData);
-                    
                     return data;
             }
 

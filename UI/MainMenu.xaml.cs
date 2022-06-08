@@ -45,17 +45,38 @@ namespace UI
             List<string> requestResult = new List<string>();
             BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();
             requestResult = encryptMessage.ReceivingMessage(UI_Status.OUTPUT_INFORMATION);
+            string text = "";
             foreach (string K in requestResult)
             {
-                ListForm.Items.Add(K);
+                string str = K;
+                if (str.StartsWith(" "))
+                {
+                    str = str.Substring(1);
+                }
+                text += str + "\n";
             }
-
+            ListForm.Text = text;
 
         }
 
-        public void Change(object sender, RoutedEventArgs e)
+        public void ChangeItem(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Работает вот так");
+            List<string> usersList = new List<string>();
+            string word = "";
+            foreach (char i in ListForm.Text)
+            {
+                
+                if (i == '\n')
+                {
+                    usersList.Add(word);
+                    word = "";
+                }else
+                {
+                    word += i;
+                }
+            }
+            Rewrite message = new Rewrite();
+            message.Proccess(usersList);
         }
     }
 }
