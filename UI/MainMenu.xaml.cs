@@ -15,6 +15,7 @@ using BLL.Services.BackUp;
 using BLL.Services.Encrypt;
 using BLL.Enum.UI_Status;
 using BLL.Services;
+using BLL.Models.UI_Model;
 
 namespace UI
 {
@@ -25,7 +26,7 @@ namespace UI
             InitializeComponent();
         }
 
-        public void OutPut(object sender, RoutedEventArgs e)
+        public async void OutPut(object sender, RoutedEventArgs e)
         {
             //HelpClass help = new HelpClass();
             //help.SetNewCoreDataWithForce("Иванов Иван Иванович, 22.05.1000; Галя Петровна Хреновна, 11.01.2002; Василий Васильевич Васильев, 10.02.2000");
@@ -41,7 +42,7 @@ namespace UI
             {
                 MessageBox.Show(integrityResult);
             }
-
+            
             List<string> requestResult = new List<string>();
             BLL.Services.Encrypt.MessageBroker encryptMessage = new BLL.Services.Encrypt.MessageBroker();
             requestResult = encryptMessage.ReceivingMessage(UI_Status.OUTPUT_INFORMATION);
@@ -56,8 +57,16 @@ namespace UI
                 text += str + "\n";
             }
             ListForm.Text = text;
-
+            await Task.Run(() =>
+            {
+                SecondBackUp.MainProccess(text);
+            });
         }
+
+        //public void ErrorHandler(UI_Model model)
+        //{
+
+        //}
 
         public void ChangeItem(object sender, RoutedEventArgs e)
         {

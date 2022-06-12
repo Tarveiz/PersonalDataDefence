@@ -8,6 +8,7 @@ using DAL.Enum;
 using DAL.Models;
 using DAL.Enum.ErrorType;
 
+
 namespace DAL.Services.CoreAccess
 {
     public class Core

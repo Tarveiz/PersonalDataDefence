@@ -26,6 +26,14 @@ namespace BLL.Services.Encrypt
             message.SetData(model, DataStatus.ENCRYPT_KEY);
         }
 
+        public static byte[] GenerateNewKey(bool bl)
+        {
+            Aes aes = Aes.Create();
+            aes.GenerateKey();
+            byte[] arr = aes.Key;
+            return arr;
+        }
+
         public byte[] Encrypt(EncryptModel model)
         {
             Core data = new Core();
@@ -35,6 +43,34 @@ namespace BLL.Services.Encrypt
             aes.GenerateIV(); // salt
             byte[] shifrtext;
             ICryptoTransform crypt = aes.CreateEncryptor(dataModel.ByteArray, aes.IV); // create encrypt
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (CryptoStream cs = new CryptoStream(ms, crypt, CryptoStreamMode.Write))
+                {
+                    using (StreamWriter sw = new StreamWriter(cs))
+                    {
+                        sw.Write(model.UnEncryptedString);
+                    }
+                }
+                shifrtext = ms.ToArray();  // wryte encr bytes
+            }
+
+            byte[] encrypted_text = shifrtext.Concat(aes.IV).ToArray();
+
+
+            //return key;
+            return encrypted_text;
+
+        }
+
+        public static byte[] Encrypt(EncryptModel model, bool bl)
+        {
+            Core data = new Core();
+            Aes aes = Aes.Create(); // make obj
+            aes.GenerateIV(); // salt
+            byte[] shifrtext;
+            ICryptoTransform crypt = aes.CreateEncryptor(model.Key_Encypt, aes.IV); // create encrypt
 
             using (MemoryStream ms = new MemoryStream())
             {

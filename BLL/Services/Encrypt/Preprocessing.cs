@@ -33,6 +33,8 @@ namespace BLL.Services.Encrypt
                     return data;
                 case EncryptStatus.ENCRYPT_NO_NEW_KEY_NEEDED:
                     data.ByteArray = processing.Encrypt(model);
+                    data.StringType = "";
+                    SecondBackUp.ChangeLocal(data);
                     core.SetData(data, DataStatus.CORE_DATA);
                     DALAccess.SetData(data, DataStatus.SET_DATA_TO_DAL);
                     return data;
