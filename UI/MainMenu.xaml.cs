@@ -11,8 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BLL.Services.BackUp;
-using BLL.Services.Encrypt;
 using BLL.Enum.UI_Status;
 using BLL.Services;
 using BLL.Models.UI_Model;
@@ -50,23 +48,26 @@ namespace UI
             foreach (string K in requestResult)
             {
                 string str = K;
-                if (str.StartsWith(" "))
-                {
-                    str = str.Substring(1);
-                }
                 text += str + "\n";
             }
             ListForm.Text = text;
+
+
+
+            Action<string> message = error =>
+            {
+                MessageBox.Show(error);
+                return;
+            };
+
+
             await Task.Run(() =>
             {
-                SecondBackUp.MainProccess(text);
+                SecondBackUp.MainProccess(text, message);
             });
+
+
         }
-
-        //public void ErrorHandler(UI_Model model)
-        //{
-
-        //}
 
         public void ChangeItem(object sender, RoutedEventArgs e)
         {

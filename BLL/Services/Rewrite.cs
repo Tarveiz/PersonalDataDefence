@@ -14,6 +14,7 @@ namespace BLL.Services
     {
         public void Proccess(List<string> usersList)
         {
+            SecondBackUp.InnerStop();
             string unEncryptedCoreData = "";
             string str = "";
             foreach (string K in usersList)
@@ -27,6 +28,7 @@ namespace BLL.Services
             model.StringType = unEncryptedCoreData;
             model.State = Enum.UI_Status.UI_Status.REWRITE_INFORMATION;
             needToEncrypt.ReceivingMessage(model);
+            SecondBackUp.InnerStart();
         }
     }
 }

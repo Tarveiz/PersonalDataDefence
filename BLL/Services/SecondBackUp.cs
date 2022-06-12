@@ -20,7 +20,7 @@ namespace BLL.Services
     {
         private static System.Timers.Timer aTimer;
         private static string coreHash = "";
-        private static string DALHash = "";
+        //private static string DALHash = "";
         static MainHash hash = new MainHash();
         static Core coreData = new Core();
         static Access DAL = new Access();
@@ -30,10 +30,12 @@ namespace BLL.Services
         static byte[] reserveKey;
         static byte[] res;
         static string err = "";
+        static Action<string> message;
 
 
-        public static void MainProccess(string str)
+        public static void MainProccess(string str, Action<string> mes)
         {
+            message = mes;
             bool bl = false;
             err = str;
             if (mainCheck == false)
@@ -51,30 +53,53 @@ namespace BLL.Services
                 File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
 
 
-                coreHash = hash.GetHash(coreData.GetData(DataStatus.CORE_DATA));
-                DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
+
+                DataType data2 = new DataType();
+                data2 = coreData.GetData(DataStatus.CORE_DATA);
+                data2.StringType = data2.ByteArray.ToString();
+                data2.ByteArray = null;
+                coreHash = hash.GetHash(data2);
+                //DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
                 StopTimer();
                 SetTimer();
             }
             else
             {
-                coreHash = hash.GetHash(coreData.GetData(DataStatus.CORE_DATA));
-                DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
+                DataType data2 = new DataType();
+                data2 = coreData.GetData(DataStatus.CORE_DATA);
+                data2.StringType = data2.ByteArray.ToString();
+                data2.ByteArray = null;
+                coreHash = hash.GetHash(data2);
+                //DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
                 StopTimer();
                 SetTimer();
             }
         }
 
+        public static void InnerStop()
+        {
+            StopTimer();
+        }
+
+        public static void InnerStart()
+        {
+            SetTimer();
+        }
+
+        
+
         public static void ChangeLocal(DataType arr)
         {
+            arr.StringType = arr.ByteArray.ToString();
+            arr.ByteArray = null;
             coreHash = hash.GetHash(arr);
-            DALHash = coreHash;
+            //DALHash = coreHash;
         }
 
         private static void CriticalError()
         {
-            UI_Model criticalError = new UI_Model();
-            criticalError.StringType = "ВНИМАНИЕ! Произошла критическая ошибка данных. Целостность данных была нарушена неизвестной атакой.";
+            string err = "ВНИМАНИЕ! Произошла критическая ошибка данных. Целостность данных была нарушена неизвестной атакой.";
+            message(err);
 
             //CORE информация (зашифрованная)
             File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
@@ -87,14 +112,13 @@ namespace BLL.Services
             enc.Key_Encypt = reserveKey;
             res2 = AlgorithmInitialization.Encrypt(enc, bl);
             File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
-
         }
 
 
         private static void SetTimer()
         {
             // Create a timer with a two second interval.
-            aTimer = new System.Timers.Timer(5000);
+            aTimer = new System.Timers.Timer(2000);
             // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
@@ -112,21 +136,31 @@ namespace BLL.Services
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-
+            DataType data = new DataType();
+            //DataType data2 = new DataType();
             try
             {
-                string coreHashCheck = hash.GetHash(coreData.GetData(DataStatus.CORE_DATA));
-                string DALHashCheck = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
-                if (coreHashCheck != coreHash || DALHashCheck != DALHash)
+                data = coreData.GetData(DataStatus.CORE_DATA);
+                data.StringType = data.ByteArray.ToString();
+                data.ByteArray = null;
+                string coreHashCheck = hash.GetHash(data);
+
+                //data2 = coreData.GetData(DataStatus.GET_DATA_FROM_DAL);
+                //data2.StringType = data2.ByteArray.ToString();
+                //data2.ByteArray = null;
+                //string DALHashCheck = hash.GetHash(data2);
+                // || DALHashCheck != DALHash
+
+                if (coreHashCheck != coreHash)
                 {
-                    CriticalError();
                     StopTimer();
+                    CriticalError();
                 }
             }
             catch
             {
-                CriticalError();
                 StopTimer();
+                CriticalError();
             }
             
         }
