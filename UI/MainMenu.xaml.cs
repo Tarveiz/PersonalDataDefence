@@ -57,7 +57,7 @@ namespace UI
             Action<string> message = error =>
             {
                 MessageBox.Show(error);
-                return;
+                Environment.Exit(0);
             };
 
 

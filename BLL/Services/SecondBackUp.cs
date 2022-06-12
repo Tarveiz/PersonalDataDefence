@@ -112,6 +112,7 @@ namespace BLL.Services
             enc.Key_Encypt = reserveKey;
             res2 = AlgorithmInitialization.Encrypt(enc, bl);
             File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
+            
         }
 
 
