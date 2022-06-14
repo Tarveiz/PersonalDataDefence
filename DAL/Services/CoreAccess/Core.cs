@@ -8,7 +8,6 @@ using DAL.Enum;
 using DAL.Models;
 using DAL.Enum.ErrorType;
 
-
 namespace DAL.Services.CoreAccess
 {
     public class Core
@@ -35,11 +34,6 @@ namespace DAL.Services.CoreAccess
                     path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
                     data.ByteArray = File.ReadAllBytes(path);
                     return data;
-                case DataStatus.ENCRYPT_RESULT_TEST:
-                    //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
-                    data.ByteArray = File.ReadAllBytes(path);
-                    return data;
             }
             data.Error = ErrorType.DATA_TYPE_ERROR;
             return data;
@@ -53,16 +47,6 @@ namespace DAL.Services.CoreAccess
                     //string path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\EncryptKey.txt";
                     string path = @"..\..\..\..\DAL\Services\CoreAccess\EncryptKey.txt";
                     File.WriteAllBytes(path, data.ByteArray);
-                    break;
-                case DataStatus.ENCRYPT_RESULT_TEST:
-                    //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\ENCRYPT_RESULT_TEST.txt";
-                    File.WriteAllBytes(path, data.ByteArray);
-                    break;
-                case DataStatus.UNENCRYPT_RESULT_TEST:
-                    //path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
-                    path = @"..\..\..\..\DAL\Services\CoreAccess\UNENCRYPT_RESULT_TEST.txt";
-                    File.WriteAllText(path, data.StringType);
                     break;
                 case DataStatus.CORE_DATA:
                     //string path = Directory.GetCurrentDirectory() + @"\Services\CoreAccess\EncryptKey.txt";

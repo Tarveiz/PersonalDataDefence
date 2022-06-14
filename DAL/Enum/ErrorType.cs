@@ -2,6 +2,7 @@
 {
     public enum ErrorType
     {
-        DATA_TYPE_ERROR
+        DATA_TYPE_ERROR,
+        DATA_ACCESS_ERROR
     }
 }

@@ -26,7 +26,6 @@ namespace DAL.Services.DALAccess
             data.Error = ErrorType.DATA_TYPE_ERROR;
             return data;
         }
-
         public void SetData(DataType data, DataStatus state)
         {
             switch (state)

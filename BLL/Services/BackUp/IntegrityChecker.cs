@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Services.CoreAccess;
-using DAL.Services;
 using DAL.Enum;
 using BLL.Enum;
 using DAL.Models;
@@ -40,10 +39,8 @@ namespace BLL.Services.BackUp
                     return IntegrityStatus.INTEGRITY_IS_INTACT;
                 }
             }
-            
             return IntegrityStatus.UNKNOWN_ERROR;
         }
-
         private DataType DALHAsh()
         {
             DataType data = new DataType();
@@ -53,6 +50,5 @@ namespace BLL.Services.BackUp
             data.StringType = getActualHash.GetHash(data);
             return data;
         }
-
     }
 }

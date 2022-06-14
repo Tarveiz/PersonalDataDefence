@@ -18,16 +18,13 @@ using BLL.Enum;
 
 namespace UI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-        public void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginBox.Text;
             string password = PasswordBox.Text;
@@ -36,7 +33,6 @@ namespace UI
             AuthStatus answer = message.ReceivingMessage(model);
             ExceptionHandler(answer);
         }
-
         private void ExceptionHandler(AuthStatus answer)
         {
             switch (answer)
@@ -59,9 +55,7 @@ namespace UI
                     break;
             }
         }
-
-
-        public AuthModel Reques(string login, string password)
+        private AuthModel Reques(string login, string password)
         {
             AuthModel model = new AuthModel();
             model.Login = login;

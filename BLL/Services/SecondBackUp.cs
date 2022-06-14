@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using DAL.Services.CoreAccess;
 using DAL.Services.DALAccess;
 using System.Timers;
-using BLL.Services;
 using DAL.Enum;
 using BLL.Services.Encrypt;
 using BLL.Models;
-using BLL.Models.UI_Model;
 using DAL.Models;
 
 namespace BLL.Services
@@ -20,7 +17,6 @@ namespace BLL.Services
     {
         private static System.Timers.Timer aTimer;
         private static string coreHash = "";
-        //private static string DALHash = "";
         static MainHash hash = new MainHash();
         static Core coreData = new Core();
         static Access DAL = new Access();
@@ -31,7 +27,6 @@ namespace BLL.Services
         static byte[] res;
         static string err = "";
         static Action<string> message;
-
 
         public static void MainProccess(string str, Action<string> mes)
         {
@@ -50,16 +45,20 @@ namespace BLL.Services
                 model2.Key_Encypt = reserveKey;
                 model2.UnEncryptedString = ag.Decrypt(model1);
                 res = AlgorithmInitialization.Encrypt(model2, bl);
-                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
-
-
-
+                try
+                {
+                    File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
+                }
+                catch
+                {
+                    Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
+                    File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
+                }
                 DataType data2 = new DataType();
                 data2 = coreData.GetData(DataStatus.CORE_DATA);
                 data2.StringType = data2.ByteArray.ToString();
                 data2.ByteArray = null;
                 coreHash = hash.GetHash(data2);
-                //DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
                 StopTimer();
                 SetTimer();
             }
@@ -70,7 +69,6 @@ namespace BLL.Services
                 data2.StringType = data2.ByteArray.ToString();
                 data2.ByteArray = null;
                 coreHash = hash.GetHash(data2);
-                //DALHash = hash.GetHash(DAL.GetData(DataStatus.GET_DATA_FROM_DAL));
                 StopTimer();
                 SetTimer();
             }
@@ -86,41 +84,48 @@ namespace BLL.Services
             SetTimer();
         }
 
-        
-
         public static void ChangeLocal(DataType arr)
         {
             arr.StringType = arr.ByteArray.ToString();
             arr.ByteArray = null;
             coreHash = hash.GetHash(arr);
-            //DALHash = coreHash;
         }
 
         private static void CriticalError()
         {
             string err = "ВНИМАНИЕ! Произошла критическая ошибка данных. Целостность данных была нарушена неизвестной атакой.";
             message(err);
-
-            //CORE информация (зашифрованная)
-            File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
-
-            //Информация с формы пользователя (зашифрованная)
+            try
+            {
+                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
+            }
+            catch
+            {
+                Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
+                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
+            }
             byte[] res2;
             bool bl = false;
             EncryptModel enc = new EncryptModel();
             enc.UnEncryptedString = err;
             enc.Key_Encypt = reserveKey;
             res2 = AlgorithmInitialization.Encrypt(enc, bl);
-            File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
-            
+            try
+            {
+                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
+            }
+            catch
+            {
+                Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
+                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
+            }
+            Environment.Exit(0);
         }
 
 
         private static void SetTimer()
         {
-            // Create a timer with a two second interval.
             aTimer = new System.Timers.Timer(2000);
-            // Hook up the Elapsed event for the timer. 
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
@@ -138,20 +143,12 @@ namespace BLL.Services
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             DataType data = new DataType();
-            //DataType data2 = new DataType();
             try
             {
                 data = coreData.GetData(DataStatus.CORE_DATA);
                 data.StringType = data.ByteArray.ToString();
                 data.ByteArray = null;
                 string coreHashCheck = hash.GetHash(data);
-
-                //data2 = coreData.GetData(DataStatus.GET_DATA_FROM_DAL);
-                //data2.StringType = data2.ByteArray.ToString();
-                //data2.ByteArray = null;
-                //string DALHashCheck = hash.GetHash(data2);
-                // || DALHashCheck != DALHash
-
                 if (coreHashCheck != coreHash)
                 {
                     StopTimer();

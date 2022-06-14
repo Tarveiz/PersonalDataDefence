@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Enum;
-
+﻿using BLL.Enum;
 namespace BLL.Models
 {
     public class EncryptModel
