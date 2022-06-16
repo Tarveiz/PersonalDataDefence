@@ -45,15 +45,10 @@ namespace BLL.Services
                 model2.Key_Encypt = reserveKey;
                 model2.UnEncryptedString = ag.Decrypt(model1);
                 res = AlgorithmInitialization.Encrypt(model2, bl);
-                try
-                {
-                    File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
-                }
-                catch
-                {
-                    Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
-                    File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\reserveKey.txt", reserveKey);
-                }
+
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp");
+                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp\ErrorResult.txt", reserveKey);
+
                 DataType data2 = new DataType();
                 data2 = coreData.GetData(DataStatus.CORE_DATA);
                 data2.StringType = data2.ByteArray.ToString();
@@ -97,12 +92,12 @@ namespace BLL.Services
             message(err);
             try
             {
-                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
+                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp\coreData.txt", res);
             }
             catch
             {
-                Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
-                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\coreData.txt", res);
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp");
+                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp\coreData.txt", res);
             }
             byte[] res2;
             bool bl = false;
@@ -112,12 +107,12 @@ namespace BLL.Services
             res2 = AlgorithmInitialization.Encrypt(enc, bl);
             try
             {
-                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
+                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp\lastChanges.txt", res2);
             }
             catch
             {
-                Directory.CreateDirectory(@"C:\Users\Misha\Desktop\ErrorResult");
-                File.WriteAllBytes(@"C:\Users\Misha\Desktop\ErrorResult\lastChanges.txt", res2);
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp");
+                File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\BackUp\lastChanges.txt", res2);
             }
             Environment.Exit(0);
         }
